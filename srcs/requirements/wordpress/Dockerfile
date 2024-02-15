@@ -1,6 +1,7 @@
 FROM alpine:3.18
 
-RUN apk add dumb-init curl mariadb-client php-fpm php-mysql php8-phar php-mbstring ssmtp && \
+RUN apk update && \
+	apk add dumb-init curl mariadb-client php-fpm php-mysqli php8-phar php-mbstring ssmtp && \
 	rm -rf /var/cache/apk/*
 
 COPY ./tools/entrypoint.sh .
