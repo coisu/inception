@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.13
 
 RUN apk update && \
 	apk add dumb-init curl mariadb-client php-fpm php-mysqli php8-phar php-mbstring ssmtp && \
