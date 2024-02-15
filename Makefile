@@ -2,7 +2,7 @@ RED = \033[0;31m
 GREEN = \033[0;32m
 DEFAULT = \033[0m
 
-VOLUME = /home/jichoi/data
+VOLUME = /home/jischoi/data
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
 all:
