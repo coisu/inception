@@ -1,66 +1,71 @@
 version: '3'
 
 services:
-  mariadb:
-    build:
-        context: ./requierments/mariadb
-        dockerfile: ./Dockerfile
-    image: debian:buster
-    restart: always
-    expose:
-      - "3306"
-    networks:
-      - intra
-    volumes:
-        - db:/var/lib/mysql
-    env_file:
-        - .env
-    tty: true
-  nginx:
-    build:
-        context: ./requierments/nginx
-        dockerfile: ./Dockerfile
-    image: debian:buster
-    restart: always
-    ports:
-      - "443:443"
-    volumes:
-      - wp:/ver/www/html
-    networks:
-      - intra
-    depands_on:
-      - wordpress
-    tty: true
-  wordpress:
-    image: debian:buster
-    build:
-        contect: ./requierments/wordpress
-        dockerfile: ./Dockerfile
-    restart: always
-    volumes:
-      - wp:/var/www/html
-    expose:
-      - "9000"
-    networks:
-      - intra
-    depands_on:
-      - mariadb
-    tty: true
+    mariadb:
+        container_name: mariadb_container
+        build:
+            context: ./requierments/mariadb
+            dockerfile: ./Dockerfile
+        restart: always
+        expose:
+            - "3306"
+        networks:
+            - intra
+        volumes:
+            - /home/jischoi/data/db:/var/lib/mysql
+        environment:
+            - DB_NAME=${DB_NAME}
+            - MARIADB_USER=${MARIADB_USER}
+            - MARIADB_PW=${MARIADB_PW}
+            - MARIADB_ROOT_PW=${MARIADB_ROOT_PW}
+    wordpress:
+        container_name: wordpress_container
+        build:
+            context: ./requierments/wordpress
+            dockerfile: ./Dockerfile
+        restart: always
+        volumes:
+            - /home/jischoi/data/wp:/var/www/html
+        expose:
+            - "9000"
+        networks:
+            - intra
+        depends_on:
+            - mariadb
+        environment:
+            - ADMIN_USER=${ADMIN_USER}
+            - ADMIN_USER_PW=${ADMIN_USER_PW}
+            - AUTHOR_USER=${AUTHOR_USER}
+            - AUTHOR_USER_PW=${AUTHOR_USER_PW} 
+    nginx:
+        container_name: nginx_container
+        build:
+            context: ./requierments/nginx
+            dockerfile: ./Dockerfile
+        restart: always
+        ports:
+            - "443:443"
+        volumes:
+            - /home/jischoi/data/wp:/var/www/html
+        networks:
+            - intra
+        depends_on:
+            - wordpress
 
-volumes:
-        wp:
-                driver: local
-                driver_opts:
-                        type: none
-                        o: bind
-                        device: 'home/$user_name/data/wordpress'
-       db:
-               driver: local
-               drivar_opts:
-                       type: none
-                       o: bind
-                       device: 'home/$user_name/data/mariadb'
+# volumes:
+#     wp:
+#         driver: local
+#         driver_opts:
+#                 type: none
+#                 o: bind
+#                 device: 'home/$user_name/data/wordpress'
+#     db:
+#         driver: local
+#         drivar_opts:
+#                 type: none
+#                 o: bind
+#                 device: 'home/$user_name/data/mariadb'
 
 networks:
-  intra:
-    driver: bridge
+    intra:
+        driver: bridge

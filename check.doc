@@ -1,0 +1,48 @@
+Based on the project requirements
+
+1. **Each Docker image must have the same name as its corresponding service**: 
+    ✔️ docker-compose.yml file specifies service names, and Dockerfiles correspond to these services, ensuring consistency.
+
+2. **Each service has to run in a dedicated container**: 
+    ✔️ Each service in docker-compose.yml file is defined separately, ensuring that each runs in its own container
+
+3. **Containers must be built either from the penultimate stable version of Alpine or Debian**: 
+    ✔️ specified Alpine in Dockerfiles, which complies with this requirement
+
+4. **You must write your own Dockerfiles**: 
+    ✔️ provided custom Dockerfiles for each service
+
+5. **It is forbidden to pull ready-made Docker images**: 
+    ✔️ didn't pull ready-made Docker images, and instead, built images from Dockerfiles
+
+6. **Set up NGINX with TLSv1.2 or TLSv1.3 only**: 
+    ✔️ configured NGINX in docker-compose.yml file to use port 443 with TLSv1.2 or TLSv1.3
+
+7. **Set up WordPress + php-fpm and MariaDB in separate containers**: 
+    ✔️ defined separate services for WordPress + php-fpm and MariaDB in docker-compose.yml
+
+8. **Volumes for WordPress database and website files**: 
+    ✔️ specified volumes for WordPress database and website files in docker-compose.yml
+
+9. **Establish a docker-network**: 
+    ✔️ defined a docker-network in docker-compose.yml
+
+10. **Containers must restart in case of a crash**: 
+    ✔️ didn't specify a command that runs an infinite loop, ensuring that containers can restart in case of a crash
+        - In Docker, by default, containers automatically restart unless explicitly stopped or removed.
+        - there isn't any explicit command or entrypoint that would cause the container to terminate.
+            Instead, the scripts initialize the services and keep them running.
+            Therefore, Docker will handle the container restart behavior as expected.
+            
+11. **Users in WordPress database**: 
+    ✔️ entrypoint script for WordPress creates two users as required, one being the administrator.(admin & author)
+
+12. **Use of environment variables**: 
+    ✔️ used environment variables in Dockerfiles and docker-compose.yml file
+
+13. **Use a .env file to store environment variables**: 
+    ✔️ provided a .env file, storing environment variables.
+
+14. **NGINX container as the only entrypoint via port 443 with TLSv1.2 or TLSv1.3**: 
+    ✔️ NGINX container is set up to listen on port 443 with TLSv1.2 or TLSv1.3
+
