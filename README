@@ -46,3 +46,31 @@ Based on the project requirements
 14. **NGINX container as the only entrypoint via port 443 with TLSv1.2 or TLSv1.3**: 
     ✔️ NGINX container is set up to listen on port 443 with TLSv1.2 or TLSv1.3
 
+
+WordPress Database Users:
+
+ Create two users in the WordPress database.
+ Ensure one of them is an administrator.
+ The administrator's username must not contain "admin" or "administrator".
+ Volumes Configuration:
+
+ Volumes should be available in the /home/login/data folder of the host machine using Docker.
+ Replace "login" with your own login username.
+ Domain Name Configuration:
+
+ Configure your domain name to point to your local IP address.
+ The domain name must be login.42.fr, where "login" is replaced with your own login.
+ Docker Image Tags:
+
+ Ensure that the latest tag is prohibited.
+ No Passwords in Dockerfiles:
+
+ Remove any passwords from Dockerfiles.
+ Use of Environment Variables:
+
+ Mandatory use of environment variables.
+ Store environment variables in a .env file located at the root of the srcs directory.
+ NGINX Container Configuration:
+
+ NGINX container must be the only entry point into the infrastructure via port 443.
+ Use TLSv1.2 or TLSv1.3 protocol for secure communication.
