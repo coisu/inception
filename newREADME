@@ -1,0 +1,71 @@
+Based on the provided requirements
+
+1. ✔️ **Virtual Machine Setup:**
+   - Set up the project in a virtual machine environment.
+
+2. ✔️ **Usage of Docker Compose:**
+   - Utilize Docker Compose for managing the infrastructure.
+
+3. ✔️ **Image and Service Naming:**
+   - Ensure each Docker image has the same name as its corresponding service.
+
+4. ✔️ **Service Isolation:**
+   - Run each service in a dedicated container.
+
+5. ✔️ **Base Image Selection:**
+   - Choose either the penultimate stable version of Alpine or Debian for building container images.
+
+6. ✔️ **Custom Dockerfiles:**
+   - Write custom Dockerfiles for each service.
+   - Dockerfiles must be named accordingly and called in docker-compose.yml by the Makefile.
+
+7. ✔️ **Building Custom Docker Images:**
+   - Build Docker images for the project services.
+   - Prohibited from pulling ready-made Docker images or using DockerHub services for this purpose.
+
+8. ✔️ **Service Configuration:**
+   - Set up a Docker container with NGINX supporting TLSv1.2 or TLSv1.3 only.
+   - Configure NGINX to act as a reverse proxy for WordPress and MariaDB services.
+
+9. ✔️ **WordPress and php-fpm Container:**
+   - Create a Docker container with WordPress and php-fpm installed and configured, excluding NGINX.
+
+10. ✔️ **MariaDB Container:**
+    - Create a Docker container with MariaDB installed and configured, excluding NGINX.
+
+11. ✔️ **Volume Configuration:**
+    - Set up a volume to store the WordPress database.
+    - Set up a second volume to store the WordPress website files.
+    - Volumes should be available in the /home/login/data folder of the host machine using Docker.
+      Replace "login" with your own login username.
+
+12. ✔️ **Docker Network Setup:**
+    - Establish a Docker network to facilitate communication between containers.
+
+13. ✔️ **Automatic Restart:**
+    - Ensure containers restart automatically in case of a crash.
+    - Avoid using hacky solutions like tail -f for running Docker containers.
+    - Understand how daemons work and choose appropriate methods for container management.
+
+14. ✔️ **WordPress Database Users:**
+    - Create two users in the WordPress database.
+    - Ensure one of them is an administrator.
+    - The administrator's username must not contain "admin" or "administrator".
+
+15. ✔️ **Domain Name Configuration:**
+    - Configure your domain name to point to your local IP address.
+    - The domain name must be login.42.fr, where "login" is replaced with your own login.
+
+16. ✔️ **Docker Image Tags:**
+    - Ensure that the latest tag is prohibited.
+
+17. ✔️ **No Passwords in Dockerfiles:**
+    - Remove any passwords from Dockerfiles.
+
+18. ✔️ **Use of Environment Variables:**
+    - Mandatory use of environment variables.
+    - Store environment variables in a .env file located at the root of the srcs directory.
+
+19. ✔️ **NGINX Container Configuration:**
+    - NGINX container must be the only entry point into the infrastructure via port 443.
+    - Use TLSv1.2 or TLSv1.3 protocol for secure communication.
