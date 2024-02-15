@@ -46,7 +46,54 @@ Based on the project requirements
 14. **NGINX container as the only entrypoint via port 443 with TLSv1.2 or TLSv1.3**: 
     ✔️ NGINX container is set up to listen on port 443 with TLSv1.2 or TLSv1.3
 
+Virtual Machine Setup:
 
+ Set up the project in a virtual machine environment.
+ Usage of Docker Compose:
+
+ Utilize Docker Compose for managing the infrastructure.
+ Image and Service Naming:
+
+ Ensure each Docker image has the same name as its corresponding service.
+ Service Isolation:
+
+ Run each service in a dedicated container.
+ Base Image Selection:
+
+ Choose either the penultimate stable version of Alpine or Debian for building container images.
+ Custom Dockerfiles:
+
+ Write custom Dockerfiles for each service.
+ Dockerfiles must be named accordingly and called in docker-compose.yml by the Makefile.
+ Building Custom Docker Images:
+
+ Build Docker images for the project services.
+ Prohibited from pulling ready-made Docker images or using DockerHub services for this purpose.
+ Service Configuration:
+
+ Set up a Docker container with NGINX supporting TLSv1.2 or TLSv1.3 only.
+ Configure NGINX to act as a reverse proxy for WordPress and MariaDB services.
+ WordPress and php-fpm Container:
+
+ Create a Docker container with WordPress and php-fpm installed and configured, excluding NGINX.
+ MariaDB Container:
+
+ Create a Docker container with MariaDB installed and configured, excluding NGINX.
+ Volume Configuration:
+
+ Set up a volume to store the WordPress database.
+ Set up a second volume to store the WordPress website files.
+ Docker Network Setup:
+
+ Establish a Docker network to facilitate communication between containers.
+ Automatic Restart:
+
+ Ensure containers restart automatically in case of a crash.
+ Avoid Hacky Solutions:
+
+ Avoid using hacky solutions like tail -f for running Docker containers.
+ Understand how daemons work and choose appropriate methods for container management.
+ 
 WordPress Database Users:
 
  Create two users in the WordPress database.
