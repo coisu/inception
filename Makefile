@@ -5,7 +5,7 @@ DEFAULT = \033[0m
 VOLUME = /home/jischoi/data
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-all:
+all: env
 	@mkdir -p $(VOLUME)
 	@mkdir -p $(VOLUME)/mariadb
 	@mkdir -p $(VOLUME)/wordpress
@@ -16,14 +16,16 @@ clean:
 	@echo "$(RED)docker compose down$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) down
 
-fclean:
+fclean: env
 	@sudo rm -rf $(VOLUME)/db $(VOLUME)/wp
-	docker-compose -f $(COMPOSE_FILE) down --rmi all
-	docker volume rm $$(docker volme ls -f dangling=true -q)
-	@rm -rf ./jischoi
+	@docker system prune --all --force --volumes
+	@docker network prune --force
 
 re:
 	$(make) fclean
 	$(make) all
+
+env:
+	@test -f ./srcs/.env || cp ~/.env ./srcs/.env
 
 .PHONY: all clean fclean re
