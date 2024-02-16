@@ -69,3 +69,6 @@ Based on the provided requirements
 19. ✔️ **NGINX Container Configuration:**
     - NGINX container must be the only entry point into the infrastructure via port 443.
     - Use TLSv1.2 or TLSv1.3 protocol for secure communication.
+
+
+    
