@@ -6,9 +6,13 @@ services:
         build:
             context: ./requirements/mariadb
             dockerfile: Dockerfile
-        restart: always
+        image: mariadb:mariadb-alpine
+        env_file:
+            - .env
+        init: true
+        restart: on-failure
         expose:
-            - "3306"
+            - "3306" #default
         networks:
             - intra
         volumes:
@@ -23,7 +27,11 @@ services:
         build:
             context: ./requirements/wordpress
             dockerfile: Dockerfile
-        restart: always
+        image: wordpress:wordpress-alpine
+        env_file:
+            - .env
+        init: true
+        restart: on-failure
         volumes:
             - /home/jischoi/data/wp:/var/www/html
         expose:
@@ -42,7 +50,11 @@ services:
         build:
             context: ./requirements/nginx
             dockerfile: Dockerfile
-        restart: always
+        image: nginx:nginx-alpine
+        env_file:
+            - .env
+        init: true # mariadb mysql daemon process will have PID 1 without this, then cannot manage signals correctly from host
+        restart: on-failure # restart only if exit with non-zero code
         ports:
             - "443:443"
         volumes:
