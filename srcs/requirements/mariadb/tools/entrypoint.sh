@@ -1,6 +1,8 @@
 #!/bin/sh
 echo "Starting entrypoint.sh script..."
 
+export PATH=$PATH:/usr/sbin:/sbin:/usr/local/sbin
+
 # Check if the database directory exists
 if [ ! -d /var/lib/mysql/$DB_NAME ]; then
     mariadb-install-db --datadir=/var/lib/mysql --user=mysql
