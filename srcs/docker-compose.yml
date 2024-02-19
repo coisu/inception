@@ -82,15 +82,15 @@ volumes:
     wp:
         driver: local
         driver_opts:
-                type: none
-                o: bind
-                device: 'home/jischoi/data/wordpress'
+            type: none
+            o: bind
+            device: 'home/jischoi/data/wordpress'
     db:
         driver: local
         drivar_opts:
-                type: none
-                o: bind
-                device: 'home/jischoi/data/mariadb'
+            type: none
+            o: bind
+            device: 'home/jischoi/data/mariadb'
 
 networks:
     intra:
