@@ -5,7 +5,7 @@ DEFAULT = \033[0m
 VOLUME = /home/jischoi/data
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-all: env create-network
+all: env
 	@echo "$(GREEN)docker compose build$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) up --build -d
 
