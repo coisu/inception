@@ -1,4 +1,5 @@
 #!/bin/sh
+echo "Starting entrypoint.sh script..."
 
 # Check if the database directory exists
 if [ ! -d /var/lib/mysql/$DB_NAME ]; then
@@ -13,6 +14,8 @@ if [ ! -d /var/lib/mysql/$DB_NAME ]; then
     until mysqladmin ping -h localhost >/dev/null 2>&1; do
         sleep 1
     done
+
+    echo "Initializing database..."
 
     # Initialize the database and create users
     mysql -h localhost -u root -p"$MYSQL_ROOT_PASSWORD" <<EOF
@@ -30,6 +33,8 @@ EOF
     # Shutdown MariaDB
     mysqladmin -uroot --password=$MYSQL_ROOT_PASSWORD shutdown
 fi
+
+echo "Starting MariaDB..."
 
 # Start MariaDB
 /usr/bin/mysqld_safe --datadir='/var/lib/mysql'
