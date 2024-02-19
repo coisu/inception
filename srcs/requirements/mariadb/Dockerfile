@@ -1,13 +1,16 @@
 FROM alpine:3.18
 
 RUN apk update && \
+    apk upgrade && \
     apk add -y --no-cache mariadb mariadb-client dumb-init && \
     rm -rf /var/cache/apk/*
 
 COPY ./conf/mariadb.cnf /etc/my.cnf.d
 COPY ./tools/entrypoint.sh .
+COPY ./tools/init.sh .
 
-RUN chmod +x /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh /initialize_mariadb.sh
 
 EXPOSE 3306
 

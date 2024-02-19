@@ -5,7 +5,7 @@ set -e
 
 mkdir -p /etc/nginx/ssl
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $CERTS_KEY -out $CERTS_ -subj "/C=MO/L=KH/O=1337/CN=jischoi.1337.ma"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $CERTS_KEY -out $CERTS_CERT -subj "/C=MO/L=KH/O=1337/CN=jischoi.1337.ma"
 
 
 echo "
@@ -15,8 +15,8 @@ server {
 
     #server_name www.$DOMAIN_NAME $DOMAIN_NAME;
 
-    ssl_certificate $CERTS_;
-    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;" > /etc/nginx/sites-available/default
+    ssl_certificate $CERTS_CERT;
+    ssl_certificate_key $CERTS_KEY;" > /etc/nginx/sites-available/default
 
 
 echo '

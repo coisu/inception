@@ -5,10 +5,7 @@ DEFAULT = \033[0m
 VOLUME = /home/jischoi/data
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-all: env
-	@mkdir -p $(VOLUME)
-	@mkdir -p $(VOLUME)/mariadb
-	@mkdir -p $(VOLUME)/wordpress
+all: env create-dirs
 	@echo "$(GREEN)docker compose build$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) up --build -d
 
@@ -27,5 +24,10 @@ re:
 
 env:
 	@test -f ./srcs/.env || cp ~/.env ./srcs/.env
+
+create-dirs:
+	@mkdir -p $(VOLUME)
+	@mkdir -p $(VOLUME)/db
+	@mkdir -p $(VOLUME)/wp
 
 .PHONY: all clean fclean re
