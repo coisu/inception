@@ -1,11 +1,10 @@
 #!/bin/bash
 
-
 set -e
 
-mkdir -p /etc/nginx/ssl
+mkdir -p $CERTS_DIR
 
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout $CERTS_KEY -out $CERTS_CERT -subj "/C=MO/L=KH/O=1337/CN=jischoi.1337.ma"
+openssl req -x509 -nodes -days 365 -newkey rsa:4096 -keyout $CERTS_KEY -out $CERTS_CERT -subj "/C=FR/ST=France/L=Paris/O=42Paris/OU=Bess/CN=jischoi.42.fr"
 
 
 echo "
@@ -13,13 +12,9 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    #server_name www.$DOMAIN_NAME $DOMAIN_NAME;
-
     ssl_certificate $CERTS_CERT;
-    ssl_certificate_key $CERTS_KEY;" > /etc/nginx/sites-available/default
+    ssl_certificate_key $CERTS_KEY;
 
-
-echo '
     ssl_protocols TLSv1.3;
 
     index index.php;
@@ -31,7 +26,4 @@ echo '
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         }
-} ' >>  /etc/nginx/sites-available/default
-
-
-nginx -g "daemon off;"
+} " >  /etc/nginx/http.d/default.conf

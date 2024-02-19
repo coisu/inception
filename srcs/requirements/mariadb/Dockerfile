@@ -7,10 +7,8 @@ RUN apk update && \
 
 COPY ./conf/mariadb.cnf /etc/my.cnf.d
 COPY ./tools/entrypoint.sh .
-COPY ./tools/init.sh .
 
-
-RUN chmod +x /entrypoint.sh /initialize_mariadb.sh
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 3306
 
