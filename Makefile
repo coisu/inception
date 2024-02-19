@@ -5,16 +5,17 @@ DEFAULT = \033[0m
 VOLUME = /home/jischoi/data
 COMPOSE_FILE = ./srcs/docker-compose.yml
 
-all: env create-dirs
+all: env create-dirs create-network
 	@echo "$(GREEN)docker compose build$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) up --build -d
+	docker network create intra
 
 clean:
 	@echo "$(RED)docker compose down$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) down
 
 fclean: env
-	@sudo rm -rf $(VOLUME)/db $(VOLUME)/wp
+	@rm -rf $(VOLUME)
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 
@@ -29,5 +30,8 @@ create-dirs:
 	@mkdir -p $(VOLUME)
 	@mkdir -p $(VOLUME)/db
 	@mkdir -p $(VOLUME)/wp
+
+create-network:
+    @docker network create intra
 
 .PHONY: all clean fclean re

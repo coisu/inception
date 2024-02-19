@@ -78,20 +78,6 @@ services:
         depends_on:
             - wordpress
 
-# volumes:
-#     wp:
-#         driver: local
-#         driver_opts:
-#                 type: none
-#                 o: bind
-#                 device: 'home/$user_name/data/wordpress'
-#     db:
-#         driver: local
-#         drivar_opts:
-#                 type: none
-#                 o: bind
-#                 device: 'home/$user_name/data/mariadb'
-
 networks:
     intra:
         driver: bridge
