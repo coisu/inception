@@ -87,7 +87,7 @@ volumes:
             device: 'home/jischoi/data/wordpress'
     db:
         driver: local
-        drivar_opts:
+        driver_opts:
             type: none
             o: bind
             device: 'home/jischoi/data/mariadb'
