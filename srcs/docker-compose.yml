@@ -4,7 +4,7 @@ services:
     mariadb:
         container_name: mariadb_container
         build:
-            context: ./requirements/mariadb
+            context: ./requirements/mariadb/
             dockerfile: Dockerfile
         image: mariadb:mariadb-alpine
         env_file:
@@ -16,7 +16,7 @@ services:
         networks:
             - intra
         volumes:
-            - /home/jischoi/data/db:/var/lib/mysql
+            - db:/var/lib/mysql
         environment:
             - DB_NAME=${DB_NAME}
             - MYSQL_USER=${MYSQL_USER}
@@ -30,7 +30,7 @@ services:
     wordpress:
         container_name: wordpress_container
         build:
-            context: ./requirements/wordpress
+            context: ./requirements/wordpress/
             dockerfile: Dockerfile
         image: wordpress:wordpress-alpine
         env_file:
@@ -38,7 +38,7 @@ services:
         init: true
         restart: on-failure
         volumes:
-            - /home/jischoi/data/wp:/var/www/html
+            - wp:/var/www/html
         expose:
             - "9000"
         networks:
@@ -62,7 +62,7 @@ services:
     nginx:
         container_name: nginx_container
         build:
-            context: ./requirements/nginx
+            context: ./requirements/nginx/
             dockerfile: Dockerfile
         image: nginx:nginx-alpine
         env_file:
@@ -72,25 +72,25 @@ services:
         ports:
             - "443:443"
         volumes:
-            - /home/jischoi/data/wp:/var/www/html
+            - wp:/var/www/html
         networks:
             - intra
         depends_on:
             - wordpress
 
-# volumes:
-#     wp:
-#         driver: local
-#         driver_opts:
-#                 type: none
-#                 o: bind
-#                 device: '/home/$user_name/data/wordpress'
-#     db:
-#         driver: local
-#         drivar_opts:
-#                 type: none
-#                 o: bind
-#                 device: '/home/$user_name/data/mariadb'
+volumes:
+    wp:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: '/home/jischoi/data/wordpress'
+    db:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: '/home/jischoi/data/mariadb'
 
 networks:
     intra:

@@ -18,10 +18,7 @@ fclean: env clean
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 
-re:
-
-	$(make) fclean
-	$(make) all
+re: fclean all
 
 env:
 	@if [ -f ./srcs/.env ]; then \
