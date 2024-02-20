@@ -37,8 +37,8 @@ env:
 
 create-dirs:
 	@mkdir -p $(VOLUME)
-	@mkdir -p $(VOLUME)/db
-	@mkdir -p $(VOLUME)/wp
+	@mkdir -p $(VOLUME)/mariadb
+	@mkdir -p $(VOLUME)/wordpress
 
 create-network:
 	@docker network create intra
