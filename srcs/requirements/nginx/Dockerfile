@@ -5,6 +5,8 @@ RUN apk update && \
 	apk add --no-cache nginx dumb-init openssl && \
 	rm -rf /var/cache/apk/*
 
+RUN chmod +x ./tools/generate_cert.sh
+
 COPY ./conf/server.conf /etc/nginx/http.d/default.conf
 COPY ./tools/generate_cert.sh /usr/local/bin/generate_cert.sh
 
