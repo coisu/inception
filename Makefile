@@ -13,8 +13,8 @@ clean:
 	@echo "$(RED)docker compose down$(DEFAULT)"
 	docker-compose -f $(COMPOSE_FILE) down
 
-fclean: env
-	# @rm -rf $(VOLUME)
+fclean: env clean
+	@sudo rm -rf $(VOLUME)
 	@docker system prune --all --force --volumes
 	@docker network prune --force
 

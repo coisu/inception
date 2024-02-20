@@ -12,7 +12,7 @@ COPY ./tools/generate_cert.sh /usr/local/bin/generate_cert.sh
 
 RUN chmod +x /usr/local/bin/generate_cert.sh
 
-ENTRYPOINT ["/usr/bin/dumb-init"]
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
 WORKDIR /var/www/html/
 
