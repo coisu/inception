@@ -23,8 +23,17 @@ re:
 	$(make) fclean
 	$(make) all
 
+
 env:
-	@test -f ./srcs/.env || cp ~/.env ./srcs/.env
+    @if [ -f ./srcs/.env ]; then \
+        echo "The .env file exists."; \
+    else \
+        echo "The .env file does not exist. Copying from ~/.env..."; \
+        cp ~/.env ./srcs/.env; \
+        echo "Copied .env file from ~/.env to ./srcs/.env."; \
+    fi
+# env:
+# 	@test -f ./srcs/.env || cp ~/.env ./srcs/.env
 
 create-dirs:
 	@mkdir -p $(VOLUME)
