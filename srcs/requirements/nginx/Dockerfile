@@ -5,7 +5,7 @@ RUN apk update && \
 	apk add --no-cache nginx dumb-init openssl && \
 	rm -rf /var/cache/apk/*
 
-RUN chmod +x ./tools/generate_cert.sh
+# RUN chmod +x ./tools/generate_cert.sh
 
 COPY ./conf/server.conf /etc/nginx/http.d/default.conf
 COPY ./tools/generate_cert.sh /usr/local/bin/generate_cert.sh
@@ -14,7 +14,7 @@ RUN chmod +x /usr/local/bin/generate_cert.sh
 
 ENTRYPOINT ["/usr/bin/dumb-init"]
 
-WORKDIR /var/www/html/
+# WORKDIR /var/www/html/
 
 CMD sh -c "pwd && /usr/local/bin/generate_cert.sh && nginx -g 'daemon off;'"
 # nginx -g 'daemon off;' : start the Nginx web server in the foreground
