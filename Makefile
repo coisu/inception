@@ -23,7 +23,6 @@ re:
 	$(make) fclean
 	$(make) all
 
-
 env:
 	@if [ -f ./srcs/.env ]; then \
 		echo "The .env file exists."; \
@@ -37,7 +36,11 @@ env:
 
 create-dirs:
 	@mkdir -p $(VOLUME)
-	@mkdir -p $(VOLUME)/mariadb
+	@if mkdir -p $(VOLUME)/mariadb; then \
+		echo "Successfully created directory $(VOLUME)/mariadb"; \
+	else \
+		echo "Failed to create directory $(VOLUME)/mariadb"; \
+	fi
 	@mkdir -p $(VOLUME)/wordpress
 
 create-network:
