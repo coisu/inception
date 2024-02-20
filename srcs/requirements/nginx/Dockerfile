@@ -5,7 +5,7 @@ RUN apk update && \
 	apk add --no-cache nginx dumb-init openssl && \
 	rm -rf /var/cache/apk/*
 
-WORKDIR /app
+WORKDIR /home/jischoi/inception/srcs/requirements/nginx/
 
 # RUN chmod +x ./tools/generate_cert.sh
 
