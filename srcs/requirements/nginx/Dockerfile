@@ -7,10 +7,10 @@ RUN apk update && \
 
 WORKDIR /home/jischoi/inception/srcs/requirements/nginx/
 
-RUN chmod +x ./tools/generate_cert.sh
+RUN chmod +x tools/generate_cert.sh
 
-COPY ./conf/server.conf /etc/nginx/http.d/default.conf
-COPY ./tools/generate_cert.sh /usr/local/bin/generate_cert.sh
+COPY conf/server.conf /etc/nginx/http.d/default.conf
+COPY tools/generate_cert.sh /usr/local/bin/generate_cert.sh
 
 RUN chmod +x /usr/local/bin/generate_cert.sh
 
