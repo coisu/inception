@@ -16,7 +16,7 @@ services:
         networks:
             - intra
         volumes:
-            - db:/var/lib/mysql
+            - /home/jischoi/data/mariadb:/var/lib/mysql
         environment:
             - DB_NAME=${DB_NAME}
             - MYSQL_USER=${MYSQL_USER}
@@ -38,7 +38,7 @@ services:
         init: true
         restart: on-failure
         volumes:
-            - wp:/var/www/html
+            - /home/jischoi/data/wordpress:/var/www/html
         expose:
             - "9000"
         networks:
@@ -72,25 +72,11 @@ services:
         ports:
             - "443:443"
         volumes:
-            - wp:/var/www/html
+            - /home/jischoi/data/wordpress:/var/www/html
         networks:
             - intra
         depends_on:
             - wordpress
-
-volumes:
-    wp:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /home/jischoi/data/wordpress
-    db:
-        driver: local
-        driver_opts:
-            type: none
-            o: bind
-            device: /home/jischoi/data/mariadb
 
 networks:
     intra:
