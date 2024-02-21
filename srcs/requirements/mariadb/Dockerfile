@@ -2,7 +2,7 @@ FROM alpine:3.18
 
 RUN apk update && \
     apk upgrade && \
-    apk add -y --no-cache mariadb mariadb-client dumb-init && \
+    apk add -y --no-cache mariadb mariadb-client dumb-init openrc && openrc && \
     rm -rf /var/cache/apk/*
 
 
