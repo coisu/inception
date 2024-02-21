@@ -2,10 +2,12 @@
 
 # Wait for MariaDB to start
 wait_for_mariadb() {
-    until nc -z $WORDPRESS_DB_HOST 3306; do
-        echo "Waiting for MariaDB to start..."
+    echo "Waiting for MariaDB to start..."
+    until mysqladmin ping -h mariadb --silent; do
+        echo "sleep"
         sleep 2
     done
+    echo "MariaDB is up and running."
 }
 
 # WordPress installation and configuration
@@ -34,11 +36,13 @@ install_wordpress() {
 }
 
 start_php_fpm() {
+    echo "Starting FPM"
     php-fpm8 -F
 }
 
 main() {
     wait_for_mariadb
+    echo "MariaDB is up and running."
     install_wordpress
     start_php_fpm
 }

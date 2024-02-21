@@ -5,7 +5,11 @@
 [mysqld]
 port=3306
 user=mysql
+pid-file= /run/mysqld/mysqld.pid
+socket= /run/mysqld/mysqld.sock
 bind-address=0.0.0.0
+
+
 # socket = /tmp/mysql.sock
 
 # back_log = 50

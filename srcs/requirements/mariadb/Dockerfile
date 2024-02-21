@@ -6,7 +6,7 @@ RUN apk update && \
     rm -rf /var/cache/apk/*
 
 
-COPY ./conf/mariadb.cnf /etc/my.cnf.d
+COPY ./conf/mariadb.cnf /etc/mysql/my.cnf
 COPY ./tools/init.sh /init.sh
 
 RUN chmod +x /init.sh
