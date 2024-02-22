@@ -8,6 +8,7 @@ if [ ! -d /var/lib/mysql/$DB_NAME ]; then
     mkdir -p /run/openrc && touch /run/openrc/softlevel
     mkdir -p /run/mysqld
     chown -R mysql:mysql /run/mysqld /var/lib/mysql
+    chmod -R 777 /var/lib/mysql /run/mysqld
     # Start MariaDB in safe mode in the background
     # /usr/bin/mysqld_safe --datadir='/var/lib/mysql' --user=mysql &
     # sleep 1
