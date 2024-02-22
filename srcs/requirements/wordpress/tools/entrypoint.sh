@@ -13,15 +13,22 @@ wait_for_mariadb() {
 # WordPress installation and configuration
 install_wordpress() {
     if [ ! -e /var/www/html/wp-config.php ]; then
-        # Install wp-cli
-        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-        chmod +x wp-cli.phar
-        mv wp-cli.phar /usr/local/bin/wp
-
         # Create WordPress directory and set permissions
         mkdir -p /var/www/html
         adduser -D wordpress
         chown -R wordpress:wordpress /var/www/html
+
+        # download Wordpress
+        curl -O https://wordpress.org/latest.tar.gz
+        tar -xvzf latest.tar.gz
+        mv wordpress/* /var/www/html/
+        rmdir wordpress
+        rm latest.tar.gz
+
+        # Install wp-cli
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        mv wp-cli.phar /usr/local/bin/wp
 
         # Download and configure WordPress
         wp core download --locale=en_GB --path='/var/www/html'
