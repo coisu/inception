@@ -6,7 +6,8 @@
 port=3306
 user=mysql
 bind-address=0.0.0.0
-
+skip-host-cache
+skip-name-resolve
 
 # socket = /tmp/mysql.sock
 

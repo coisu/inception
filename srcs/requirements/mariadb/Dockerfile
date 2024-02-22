@@ -6,7 +6,7 @@ RUN apk update && \
     rm -rf /var/cache/apk/*
 
 
-COPY ./conf/mariadb.cnf /etc/mysql/my.cnf
+COPY ./conf/mariadb.cnf /etc/my.cnf.d/
 COPY ./tools/init.sh /init.sh
 
 RUN chmod +x /init.sh
@@ -14,5 +14,4 @@ RUN chmod +x /init.sh
 EXPOSE 3306
 
 ENTRYPOINT ["/usr/bin/dumb-init"]
-
 CMD ["/init.sh"]
