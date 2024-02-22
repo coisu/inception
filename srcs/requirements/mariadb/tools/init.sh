@@ -20,7 +20,7 @@ if [ ! -d /var/lib/mysql/$DB_NAME ]; then
 
 #     # Initialize the database and create users
 
-mysql -h localhost -u root -p "$MYSQL_ROOT_PASSWORD" <<EOF
+    mysql -h localhost -u root -p "$MYSQL_ROOT_PASSWORD" <<EOF
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
 DROP DATABASE IF EXISTS test;
 DROP USER ''@'localhost';
