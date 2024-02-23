@@ -5,8 +5,7 @@ RUN apk update && \
     apk add -y --no-cache mariadb mariadb-client dumb-init openrc && openrc && \
     rm -rf /var/cache/apk/*
 
-
-COPY ./conf/mariadb.cnf /etc/my.cnf.d/
+COPY ./conf/mariadb.cnf /etc/my.cnf
 COPY ./tools/init.sh /init.sh
 
 RUN chmod +x /init.sh

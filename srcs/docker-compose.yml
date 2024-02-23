@@ -14,7 +14,7 @@ services:
         expose:
             - "3306" #default
         networks:
-            - intra
+            - inception
         volumes:
             - db:/var/lib/mysql
         environment:
@@ -37,13 +37,13 @@ services:
         env_file:
             - .env
         init: true
-        restart: on-failure
+        restart: always
         volumes:
             - wp:/var/www/html
         expose:
             - "9000"
         networks:
-            - intra
+            - inception
         depends_on:
             - mariadb
         environment:
@@ -75,7 +75,7 @@ services:
         volumes:
             - wp:/var/www/html
         networks:
-            - intra
+            - inception
         depends_on:
             - wordpress
 
@@ -94,5 +94,6 @@ volumes:
             device: '/home/jischoi/data/mariadb'
 
 networks:
-    intra:
+    inception:
+        name:   inception
         driver: bridge
