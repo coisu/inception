@@ -83,12 +83,14 @@ services:
 
 volumes:
     wp:
+        name: wp
         driver: local
         driver_opts:
             type: none
             o: bind
             device: '/home/jischoi/data/wordpress'
     db:
+        name: db
         driver: local
         driver_opts:
             type: none
