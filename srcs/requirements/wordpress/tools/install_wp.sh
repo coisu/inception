@@ -28,8 +28,6 @@ else
     wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --porcelain --allow-root
     # echo "* Applying theme..."
     # wp theme install generatepress --activate
-    # wp widget add meta sidebar-1 1
-
 fi
 
 echo "[WP config] Starting WordPress on port 9000."
