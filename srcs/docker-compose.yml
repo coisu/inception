@@ -78,6 +78,8 @@ services:
             - inception
         depends_on:
             - wordpress
+        environment:
+            - WP=${WP}
 
 volumes:
     wp:

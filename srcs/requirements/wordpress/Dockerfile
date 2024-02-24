@@ -7,8 +7,6 @@ RUN apk update && \
 	php8-mysqli \
 	php8-opcache \
 	php8-bcmath \
-	php8-exif \
-	php8-gd \
 	php8-curl \
 	php8-json \
 	php8-mbstring \
@@ -18,9 +16,8 @@ RUN apk update && \
 	php8-openssl \
 	php8-pear \
 	php8-phar \
-	php8-zip \
-	php8-zlib \
 	mariadb-client \
+	nginx \
 	curl \
 	ca-certificates && \ 
 	rm -rf /var/cache/apk/*
@@ -38,9 +35,11 @@ COPY ./conf/wp-cli.yml /wp-cli.yml
 # RUN chmod +x /usr/local/bin/smtp_set.sh
 RUN chmod +x /usr/local/bin/install_wp.sh
 
+EXPOSE 9000
+
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-WORKDIR /var/www/html/wordpress
+WORKDIR /var/www/html/
 
 # RUN /smtp_set.sh
 
@@ -64,7 +63,7 @@ CMD sh -c '/usr/local/bin/install_wp.sh'
 # 	&& sed -i 's/^listen.allowed_clients = 127.0.0.1$/listen.allowed_clients = any/' /etc/php8/php-fpm.d/www.conf
 # 	# && sed -i 's#listen = 127.0.0.1:9000#listen = /var/run/php-fpm.sock#' /etc/php8/php-fpm.d/www.conf \
 # 	# && sed -i 's#;listen.owner = nobody#listen.owner = nobody#' /etc/php8/php-fpm.d/www.conf \
-# 	# && sed -i 's#;listen.group = nogroup#listen.group = nogroup#' /etc/php8/php-fpm.d/www.conf \
+# 	# && sed -i 's#;listen.group = nobody#listen.group = nobody#' /etc/php8/php-fpm.d/www.conf \
 # 	# && sed -i 's#;listen.mode = 0660#listen.mode = 0660#' /etc/php8/php-fpm.d/www.conf \
 
 # COPY ./tools/wordpress_install.sh .

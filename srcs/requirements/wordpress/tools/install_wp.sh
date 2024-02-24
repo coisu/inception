@@ -3,14 +3,14 @@
 echo "[WP config] Configuring WordPress..."
 
 echo "[WP config] Waiting for MariaDB..."
-sleep 20
+sleep 15
 until mysql --host=$WORDPRESS_DB_HOST --user=$MYSQL_USER --password=$MYSQL_PASSWORD -e --silent'\c'; do
     echo "mariadb is unavailable - sleeping"
     sleep 1
 done
 echo "mariadb is up - start next wordpress bootstrap"
 
-WP=/var/www/html/wordpress
+# WP=/var/www/html/wordpress
 
 if [ -f ${WP}/wp-config.php ]
 then
@@ -23,12 +23,15 @@ else
 	# wp-cli.phar core download 
 	# echo "[WP config] Creating wp-config.php..."
 	# wp-cli.phar config create --dbname=${DB_NAME} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${WORDPRESS_DB_HOST}
-	
+	echo "* Downloading wordpress..."
     wp core download
+    echo "* Creating wp Config..."
     wp config create --dbname=$WORDPRESS_DB_HOST --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$WORDPRESS_DB_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
-    echo "[i] wordpress installing..."
+    echo "* Installing wordpress with admin user..."
     wp core install --url=$WORDPRESS_URL/wordpress --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root --skip-email
+    echo "* Creating wordpress author user..."
     wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --porcelain --allow-root
+    echo "* Installing generatepress..."
     wp theme install generatepress --activate
     wp widget add meta sidebar-1 1
 
@@ -81,7 +84,7 @@ exec /usr/sbin/php-fpm8 -F -R
 #     su -s /bin/sh -c "wp core install --url=$WORDPRESS_URL --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --path=$WP" nobody
     
 #     chmod -R 777 /var/www/html
-#     chown -R nobody:nogroup /var/www/html
+#     chown -R nobody:nobody /var/www/html
 
 #     # # download Wordpress
 #     # curl -O https://wordpress.org/latest.tar.gz
@@ -112,7 +115,7 @@ exec /usr/sbin/php-fpm8 -F -R
 #         install_wordpress
 #     fi
 #     chmod -R 777 /var/www/
-#     chown -R nobody:nogroup /var/www/html
+#     chown -R nobody:nobody /var/www/html
 #     wait_for_mariadb
 #     echo "MariaDB is up and running."
 #     echo "Starting FPM"
@@ -151,7 +154,7 @@ exec /usr/sbin/php-fpm8 -F -R
 #         wp core install --url=$WORDPRESS_URL --title="$WORDPRESS_TITLE" --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL  --skip-email
 
 #         chmod -R 777 /var/www/
-#         chown -R nobody:nogroup /var/www/html
+#         chown -R nobody:nobody /var/www/html
 
 #         wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --user_pass=$WORDPRESS_PASSWORD --role=author 
 
@@ -163,9 +166,9 @@ exec /usr/sbin/php-fpm8 -F -R
 # }
 
 # start_php_fpm() {
-#     # Set the ownership of /var/www/html to nobody:nogroup
+#     # Set the ownership of /var/www/html to nobody:nobody
 #     chmod -R 777 /var/www/
-#     chown -R nobody:nogroup /var/www/html
+#     chown -R nobody:nobody /var/www/html
 
 #     # Run php-fpm8 in foreground
 #     php-fpm8 --nodaemonize

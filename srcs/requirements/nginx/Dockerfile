@@ -2,13 +2,14 @@ FROM alpine:3.18
 
 RUN apk update && \
 	apk upgrade && \
-	apk add --no-cache nginx dumb-init openssl && \
+	apk add --no-cache nginx dumb-init openssl curl && \
 	rm -rf /var/cache/apk/*
 
 RUN		mkdir -p /etc/nginx/certs
 RUN		mkdir -p /var/www/html
 
 COPY ./tools/certs/	/etc/nginx/certs/
+# COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./conf/server.conf /etc/nginx/http.d/default.conf
 
 ENTRYPOINT ["/usr/bin/dumb-init"]
