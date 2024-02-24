@@ -23,14 +23,14 @@ else
     echo "* Creating wp Config..."
     wp config create --dbname=$WORDPRESS_DB_HOST --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASSWORD --dbhost=$WORDPRESS_DB_HOST --dbcharset="utf8" --dbcollate="utf8_general_ci" --allow-root
     echo "* Installing wordpress with admin user..."
-    wp core install --url=$WORDPRESS_URL/wordpress --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root --skip-email
+    wp core install --url=$WORDPRESS_URL --title=$WORDPRESS_TITLE --admin_user=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASSWORD --admin_email=$WORDPRESS_ADMIN_EMAIL --allow-root --skip-email
     echo "* Creating wordpress author user..."
     wp user create $WORDPRESS_USER $WORDPRESS_EMAIL --role=author --user_pass=$WORDPRESS_PASSWORD --porcelain --allow-root
-    echo "* Installing generatepress..."
-    wp theme install generatepress --activate
-    wp widget add meta sidebar-1 1
+    # echo "* Applying theme..."
+    # wp theme install generatepress --activate
+    # wp widget add meta sidebar-1 1
 
 fi
 
-echo "[WP config] Starting WordPress fastCGI on port 9000."
+echo "[WP config] Starting WordPress on port 9000."
 exec /usr/sbin/php-fpm8 -F

@@ -39,9 +39,7 @@ EXPOSE 9000
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-WORKDIR /var/www/html/wordpress
-
-# RUN /smtp_set.sh
+WORKDIR /var/www/html
 
 CMD sh -c '/usr/local/bin/install_wp.sh'
 # mariadb-client: to use MariaDB as database, for interacting with the database server.
