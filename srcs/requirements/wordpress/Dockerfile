@@ -39,7 +39,7 @@ EXPOSE 9000
 
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-WORKDIR /var/www/html/
+WORKDIR /var/www/html/wordpress
 
 # RUN /smtp_set.sh
 
